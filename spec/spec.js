@@ -1,9 +1,4 @@
 code = require('../game.js')
-describe('#firstTest():', function () {
-  it('test:', function () {
-    expect(code.firstTest('code')).toEqual('result')
-  })
-})
 
 code.players.x = [1, 3, 2]
 code.players.o = [2]

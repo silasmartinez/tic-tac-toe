@@ -6,7 +6,7 @@ var http = require('http'),
   mime = require('mime')
 
 var server = http.createServer(function (req, res) {
-  reqUrl = req.url === '/' ? './index.html' : '.' + req.url
+  var reqUrl = req.url === '/' ? './index.html' : '.' + req.url
   mime.default_type = 'text-html'
   fs.readFile(reqUrl, function (err, data) {
     if (err) {
@@ -20,5 +20,5 @@ var server = http.createServer(function (req, res) {
 
 })
 
-var port =  process.env.PORT || 9001
+var port = process.env.PORT || 9001
 server.listen(port)

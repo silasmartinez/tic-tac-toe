@@ -1,16 +1,10 @@
-//code goes here
-
-var first = function () {
-  return 'result'
-}
-
 function Players () {
   this.x = []
   this.o = []
 }
 
 Players.prototype.getBoth = function () {
-  return this.x.concat(this.y)
+  return this.x.concat(this.o)
 }
 
 Players.prototype.addBlock = function (player, block) {
@@ -24,15 +18,15 @@ function Game () {
     [7, 8, 9], [1, 4, 7], [2, 5, 8],
     [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   this.board = {
-    '1' : '',
-    '2' : '',
-    '3' : '',
-    '4' : '',
-    '5' : '',
-    '6' : '',
-    '7' : '',
-    '8' : '',
-    '9' : '',
+    '1': '',
+    '2': '',
+    '3': '',
+    '4': '',
+    '5': '',
+    '6': '',
+    '7': '',
+    '8': '',
+    '9': '',
     nextUp: 'X'
   }
 }
@@ -42,7 +36,7 @@ Game.prototype.isWinner = function (_players) {
   console.log('checking for winner: ' + this.activePlayer + ': ' + player)
   var won = false
   this.winningCombos.forEach(function (ele) {
-    if (won) {return}
+    if (won) {return }
     var count = 0
     ele.forEach(function (intEle) {
       if (player.indexOf(intEle) !== -1) {
@@ -68,11 +62,9 @@ Game.prototype.newTurn = function () {
   this.turnCount++
 }
 
-//export block here
+// export block here
 module.exports = {
   firstTest: first,
   game: game,
   players: players
 }
-
-
