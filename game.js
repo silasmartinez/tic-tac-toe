@@ -3,10 +3,6 @@ function Players () {
   this.o = []
 }
 
-Players.prototype.getBoth = function () {
-  return this.x.concat(this.o)
-}
-
 Players.prototype.addBlock = function (player, block) {
   this[player].push(parseInt(block))
 }
@@ -14,6 +10,7 @@ Players.prototype.addBlock = function (player, block) {
 function Game () {
   this.activePlayer = 'x'
   this.turnCount = 0
+  this.turnComplete = false
   this.winningCombos = [[1, 2, 3], [4, 5, 6],
     [7, 8, 9], [1, 4, 7], [2, 5, 8],
     [3, 6, 9], [1, 5, 9], [3, 5, 7]]
@@ -33,7 +30,6 @@ function Game () {
 
 Game.prototype.isWinner = function (_players) {
   var player = _players[this.activePlayer]
-  console.log('checking for winner: ' + this.activePlayer + ': ' + player)
   var won = false
   this.winningCombos.forEach(function (ele) {
     if (won) {return }
@@ -57,6 +53,7 @@ Game.prototype.newTurn = function () {
   } else {
     this.activePlayer = 'x'
   }
+  this.turnComplete = false
   this.board.nextUp = this.activePlayer.toUpperCase()
   client.paintGame(this.board)
   this.turnCount++

@@ -3,15 +3,12 @@
  */
 
 client = {
-  claimBlock: function (players, block, event) {
-    if (players.indexOf(block) === -1) {
-      if (event) {
-        game.board[event.target.dataset.id] = game.activePlayer
-        event.srcElement.innerHTML = game.activePlayer
-      }
-      return true
-    } else {
-      return false
+  claimBlock: function (board, block, event) {
+    if (!board[block]) {
+      game.board[event.target.dataset.id] = game.activePlayer
+      event.srcElement.innerHTML = game.activePlayer
+      game.turnComplete = true
+      players.addBlock(game.activePlayer, block)
     }
   },
   paintGame: function (myBoard) {
@@ -32,22 +29,23 @@ var grid = document.getElementById('grid'),
 
 grid.onclick = function (e) {
   if (e.target.dataset.id) {
-    // console.log(e.target.dataset.id)
-    client.claimBlock(players.getBoth(), e.target.dataset.id, e)
-    players.addBlock(game.activePlayer, e.target.dataset.id)
+    client.claimBlock(game.board, e.target.dataset.id, e)
 
-    if (game.isWinner(players)) {
-      alert(game.activePlayer.toUpperCase() + ' is the winner!')
-      game = new Game()
-      players = new Players()
-      client.paintGame(game.board)
-    } else if (game.turnCount === 9) {
-      game = new Game()
-      players = new Players()
-      client.paintGame(game.board)
-      alert('Draw!')
-    } else {
-      game.newTurn()
+    if (game.turnComplete) {
+
+      if (game.isWinner(players)) {
+        alert(game.activePlayer.toUpperCase() + ' is the winner!')
+        game = new Game()
+        players = new Players()
+        client.paintGame(game.board)
+      } else if (game.turnCount === 9) {
+        game = new Game()
+        players = new Players()
+        client.paintGame(game.board)
+        alert('Draw!')
+      } else {
+        game.newTurn()
+      }
     }
   }
 }
