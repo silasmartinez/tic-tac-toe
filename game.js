@@ -22,7 +22,7 @@ function Game () {
   this.turnCount = 0
   this.winningCombos = [[1, 2, 3], [4, 5, 6],
     [7, 8, 9], [1, 4, 7], [2, 5, 8],
-    [3, 6, 7], [1, 5, 9], [3, 5, 7]]
+    [3, 6, 9], [1, 5, 9], [3, 5, 7]]
   this.board = {
     '1' : '',
     '2' : '',
@@ -37,8 +37,8 @@ function Game () {
   }
 }
 
-Game.prototype.isWinner = function (players) {
-  var player = players[this.activePlayer]
+Game.prototype.isWinner = function (_players) {
+  var player = _players[this.activePlayer]
   console.log('checking for winner: ' + this.activePlayer + ': ' + player)
   var won = false
   this.winningCombos.forEach(function (ele) {
